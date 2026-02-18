@@ -1,0 +1,35 @@
+# byte-compiled files
+__pycache__/
+*.py[cod]
+
+# virtual environments
+env/
+venv/
+.venv/
+ENV/
+ENV.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# Pytest cache
+.pytest_cache/
+
+# coverage reports
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pyenv
+.python-version
+
+# Pylint
+pylint-report.txt
+pylint-error.txt

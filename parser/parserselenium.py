@@ -1,7 +1,11 @@
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui  import WebDriverWait
+from selenium.webdriver.support import expected_conditions as  EC
 import time
 import random
 
@@ -31,14 +35,36 @@ html = driver.page_source  #берет HTML с конкретной страни
 soup = BeautifulSoup(html, 'html.parser')
 results = soup.find_all(class_='select-wrap') #выбрать класс "select-wrap"
 
+data_list = []
+data_list1 = []
+
 #из класса "select-wrap" нужно вытащить все "options" с "value"(данными)
 for result in results:
     options = result.find_all('option')  
     for option in options:
         value = option.get('value')  
         text = option.get_text(strip=True)  
+        data_list.append({'value': value, 'text': text})
         print(f'Value: {value}, Text: {text}')
-
+        
+try:
+    element = WebDriverWait(driver,10 ).until( EC.element_to_be_clickable((By.CSS_SELECTOR, ' .sub-menu > div:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)')))
+    element.click()
+except Exception as e:
+    print (f"ошибка: {e}")
+finally:
+    pass
+for result in results:
+    options = result.find_all('option')  
+    for option in options:
+        value = option.get('value')  
+        text = option.get_text(strip=True)
+        data_list1.append({'value': value, 'text': text})  
+        
+print("Собранные данные:")
+for item in data_list1:
+    print(item)
+    
 time.sleep(10)
 driver.quit()
 
